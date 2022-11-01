@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: php-server
+    build: .
+    image: php:8.0-apache
+    volumes:
+      - ./php:/var/www/html
+    ports:
+      - 80:80
+  db:
+      container_name: db
+      image: mysql
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+        MYSQL_DATABASE: myQuizAppDB
+        MYSQL_USER: MYSQL_USER
+        MYSQL_PASSWORD: MYSQL_PASSWORD
+      volumes:
+        - ./mysql:/var/lib/mysql
+        - ./init:/docker-entrypoint-initdb.d
+
+volumes:
+  php:
+  mysql:
+  
